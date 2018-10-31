@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 引入 ECharts 文件 -->
+    <script src="./home-assets/js/echarts.min.js"></script>
+    <style>
+        i{
+            border-radius: 
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <div id="pieDemo" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '市区产值'
+            },
+            tooltip: {},
+            legend: {
+                data: ['销量', '利润']
+            },
+            xAxis: {
+                data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+            },
+            yAxis: [{
+                type: "value",
+                name: "（个）",
+                min: 0,
+                max: 200,
+                interval: 50,
+                splitArea: {
+                    show: true,
+                    areaStyle: {
+                        color: [
+                            'rgba(250,150,150,0.3)', 'rgba(200,200,200,0.3)'
+                        ]
+                    }
+                }
+            }, {
+                type: "value",
+                min: 0,
+                max: 100,
+                interval: 25,
+                axisLabel: {
+                    formatter: '{value}%'
+                }
+            }],
+
+
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 15, 10, 20],
+                itemStyle: {
+                    barborderRadius: [10, 10, 10, 10]
+                }
+            }, {
+                name: '利润',
+                type: 'bar',
+                data: [7, 80, 5, 30, 40, 60],
+                itemStyle: {
+                    barborderRadius: [10, 10, 10, 10]
+                }
+            }]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+        var pieDemo = echarts.init(document.getElementById('pieDemo'));
+
+        var pieOption = {
+            series: [{
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                data: [{
+                        value: 235,
+                        name: '视频广告'
+                    },
+                    {
+                        value: 274,
+                        name: '联盟广告'
+                    },
+                    {
+                        value: 310,
+                        name: '邮件营销'
+                    },
+                    {
+                        value: 335,
+                        name: '直接访问'
+                    },
+                    {
+                        value: 400,
+                        name: '搜索引擎'
+                    }
+                ]
+            }]
+        }
+
+        pieDemo.setOption(pieOption)
+    </script>
+</body>
+
+</html>
