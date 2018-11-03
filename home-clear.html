@@ -6,151 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>清四乱</title>
-    <style>
-        html,
-        body {
-            height: 100%;
-        }
-
-        * {
-            margin: 0px;
-            padding: 0px;
-        }
-
-        body {
-            position: relative;
-        }
-
-        .home-clear-wrap {
-            position: absolute;
-            top: 20px;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            border: 1.5px solid #d0dce3;
-            box-sizing: border-box;
-        }
-
-        .home-clear-wrap>.top {
-            height: 44px;
-            background-color: #fbfbfb;
-            border-bottom: 1px solid #edeff5;
-            box-sizing: border-box;
-        }
-
-        .home-clear-wrap>.top>.title {
-            margin-left: 20px;
-            height: 100%;
-            display: inline-block;
-            color: #31a1f8;
-            font-size: 14px;
-            line-height: 44px;
-            padding: 0px 8px;
-            border-bottom: 2px solid #249cfc;
-        }
-
-        .home-clear-wrap>.top>.title>img {
-            vertical-align: middle;
-            transform: translateY(-2px);
-        }
-
-        .home-clear-wrap>.center {
-            margin-top: 44px;
-        }
-
-        .home-clear-wrap>.center>.bar-title {
-            text-align: center;
-            color: #333;
-            font-size: 16px;
-        }
-
-        .home-clear-wrap>.center>.label-tab {
-            margin-top: 40px;
-            height: 34px;
-            position: relative;
-        }
-
-        .home-clear-wrap>.center>.label-tab>.left {
-            display: inline-block;
-            position: absolute;
-            left: 60px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .home-clear-wrap>.center>.label-tab>.left>.label {
-            display: inline-block;
-            width: 32px;
-            height: 14px;
-            background-color: #0093db;
-            border-radius: 5px;
-            user-select: none;
-        }
-
-        .home-clear-wrap>.center>.label-tab>.left>.label-2 {
-            margin-left: 24px;
-            background-color: #ff9a36;
-        }
-
-        .home-clear-wrap>.center>.label-tab>.left>.label-3 {
-            margin-left: 24px;
-            background-color: #00d551;
-        }
-
-        .home-clear-wrap>.center>.label-tab>.left>.text {
-            color: #333;
-            font-size: 12px;
-            display: inline-block;
-            user-select: none;
-            transform: translateY(-2px);
-        }
-
-        .home-clear-wrap>.center>.label-tab>.right {
-            position: absolute;
-            right: 60px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 12px;
-        }
-
-        .home-clear-wrap>.center>.label-tab>.right>span {
-            padding: 8px 26px;
-            background-color: #eee;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        .home-clear-wrap>.center>.label-tab>.right>span:hover {
-            color: #fff;
-            background-color: #2ba4e5;
-        }
-
-        .home-clear-wrap>.center>.label-tab>.right>span.selected {
-            color: #fff;
-            background-color: #2ba4e5;
-        }
-
-        .home-clear-wrap>.bottom {
-            position: absolute;
-            top: 220px;
-            bottom: 28px;
-            left: 60px;
-            right: 60px;
-        }
-
-        .home-clear-wrap>.bottom>div {
-            width: 100%;
-            height: 100%;
-        }
-    </style>
-    <script src="./home-assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="./assets/css/clearFour.css">
+    <script src="./assets/js/echarts.min.js"></script>
 </head>
 
 <body>
     <div class="home-clear-wrap">
         <div class="top">
             <div class="title">
-                <img src="./home-assets/images/home-clear-title.png" alt="">
+                <img src="./assets/images/home-clear-title.png" alt="">
                 <span>“清四乱”</span>
                 <span>专项整治行动</span>
             </div>
@@ -167,30 +31,33 @@
                     <span class="text">销号</span>
                 </div>
                 <div class="right" id="dirtyButtonArr">
-                    <span class="selected" onclick="SelectDirtyItem(this,'dirtyBuilding')" id="dirtyOverBtn">乱占</span>
+                    <span class="selected" onclick="SelectDirtyItem(this,'dirtyOver')" id="dirtyOverBtn">乱占</span>
                     <span onclick="SelectDirtyItem(this,'dirtyStacking')" id="dirtyPickBtn">乱采</span>
                     <span onclick="SelectDirtyItem(this,'dirtyPick')" id="dirtyStackingBtn">乱堆</span>
-                    <span onclick="SelectDirtyItem(this,'dirtyOver')" id="dirtyBuildingBtn">乱建</span>
+                    <span onclick="SelectDirtyItem(this,'dirtyBuilding')" id="dirtyBuildingBtn">乱建</span>
                 </div>
             </div>
         </div>
         <div class="bottom" id="dirtyTable">
-            <!-- 乱建 -->
-            <div id="dirtyBuilding">
-
-            </div>
-            <!-- 乱堆 -->
-            <div id="dirtyStacking">
+            <!-- 乱占 -->
+            <div id="dirtyOver">
 
             </div>
             <!-- 乱采 -->
             <div id="dirtyPick">
 
             </div>
-            <!-- 乱占 -->
-            <div id="dirtyOver">
+            <!-- 乱堆 -->
+            <div id="dirtyStacking">
 
             </div>
+            <!-- 乱建 -->
+            <div id="dirtyBuilding">
+
+            </div>
+
+
+
         </div>
     </div>
     <script>
@@ -232,7 +99,7 @@
             grid: {
                 top: 30,
                 bottom: 20,
-                left: 30,
+                left: 40,
                 right: 1
             },
             tooltip: {
@@ -458,7 +325,7 @@
             grid: {
                 top: 30,
                 bottom: 20,
-                left: 30,
+                left: 40,
                 right: 1
             },
             tooltip: {
@@ -562,7 +429,7 @@
             xAxisData: ["合肥市", "芜湖市", "蚌埠市", "马鞍山市", "安庆市", "六安市", "滁州市", "宣城市", "黄山市", "淮南市", "宿州市", "铜陵市", "淮北市",
                 "亳州市", "池州市", "阜阳市"
             ],
-            findData: [300, 425, 822, 755, 651, 1025, 878, 280, 1550, 1209, 1808, 1320, 801, 469, 366, 260],
+            findData: [2000, 425, 822, 755, 651, 1025, 878, 280, 1550, 1209, 1808, 1320, 801, 469, 366, 260],
             clearData: [280, 415, 802, 715, 511, 1025, 818, 240, 1510, 1109, 1608, 1120, 751, 419, 316, 213],
             clearNumberData: [270, 405, 800, 705, 501, 1005, 808, 230, 1500, 1100, 1601, 1110, 741, 409, 306, 209]
         };
@@ -571,7 +438,7 @@
             grid: {
                 top: 30,
                 bottom: 20,
-                left: 30,
+                left: 40,
                 right: 1
             },
             tooltip: {

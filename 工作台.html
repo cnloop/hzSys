@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./assets/css/workPlatform.css"> -->
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            position: relative;
+        }
+
+
+        .workPlatform {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            overflow-x: hidden;
+        }
+
+        .workPlatformLeft {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            bottom: 0px;
+            width: 300px;
+            min-height: 100%;
+            background-color: rgba(249,251,248,0.8);
+            z-index: 999;
+        }
+
+        .workPlatformCenter {
+            position: absolute;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            /* background-color: green; */
+        }
+
+        .workPlatformRight {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            width: 398px;
+            min-height: 100%;
+            background-color: rgba(229, 236, 241, 1);
+            transition: transform 1s;
+            z-index: 999;
+        }
+
+        .workPlatformLeft>div {
+            width: 238px;
+            height: 78px;
+            line-height: 78px;
+            font-size: 22px;
+            color: #fff;
+            box-sizing: border-box;
+            padding-left: 38px;
+            margin: 0 auto;
+            margin-top: 30px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .workPlatformLeft>div:nth-child(1) {
+            margin-top: 48px;
+            position: relative;
+            /* box-shadow: 0px 3px 15px rgba(247, 172, 43, 0.8) */
+        }
+
+
+        .workPlatformLeft>div:nth-child(1):after {
+            margin-top: 0px !important;
+            content: "";
+            width: 12px;
+            height: 20px;
+            position: absolute;
+            top: 50%;
+            right: 0px;
+            transform: translate(10px, -50%);
+            margin-top: 48px;
+            background-image: url('./assets/images/workPlateform.png');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .workPlatformRight>.switch {
+            position: absolute;
+            top: 30px;
+            left: -21px;
+            width: 24px;
+            height: 86px;
+            text-align: center;
+            background-image: url('./assets/images/workPlatform-switch.png');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .workPlatformRight>.switch>.switchText {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 11px;
+            padding-top: 5px;
+        }
+
+        .workPlatformRight>.switch>.switchText>h4 {
+            font-weight: normal;
+        }
+
+        .workPlatformRight>.top {
+            height: 60px;
+            background-color: #fff;
+            position: relative;
+        }
+
+        .workPlatformRight>.top>div {
+            width: 22px;
+            height: 22px;
+            background-image: url('./assets/images/workPlateform-state-icon.png');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+        }
+
+        .workPlatformRight>.top>span {
+            position: absolute;
+            top: 50%;
+            left: 44px;
+            transform: translateY(-50%);
+            color: #31a1f8;
+        }
+
+        .workPlatformRight>.bottom {
+            position: absolute;
+            top: 66px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+        }
+
+        .workPlatformRight>.bottom>table {
+            width: 100%;
+            height: 100%;
+        }
+
+        .workPlatformRight>.bottom .item {
+            width: 358px;
+            height: 92px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .workPlatformRight>.bottom .item>.bgImage {
+            width: 146px;
+            height: 100%;
+            float: left;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .workPlatformRight>.bottom .item>.text {
+            width: 192px;
+            height: 100%;
+            float: right;
+            position: relative;
+        }
+
+        .workPlatformRight>.bottom .item>.text>.title {
+            font-size: 12px;
+            color: #545454;
+        }
+
+        .workPlatformRight>.bottom .item>.text>.date {
+            font-size: 12px;
+            color: #878787;
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+        }
+    </style>
+</head>
+
+<body onLoad="onLoad()">
+    <div class="workPlatform">
+        <div class="workPlatformLeft">
+            <div onclick="changeBoxShadow(this,'0px 3px 15px rgba(247, 172, 43, 0.8)')" style="background-image: url('./assets/images/workPlateform-btn-bg1.png');">
+                地图导航
+            </div>
+            <div onclick="changeBoxShadow(this,'0px 3px 15px rgba(47, 194, 197, 0.8)')" style="background-image: url('./assets/images/workPlateform-btn-bg2.png');">
+                省级河湖
+            </div>
+            <div onclick="changeBoxShadow(this,'0px 3px 15px rgba(47, 194, 197, 0.8)')" style="background-image: url('./assets/images/workPlateform-btn-bg2.png');">
+                市级河湖
+            </div>
+            <div onclick="changeBoxShadow(this,'0px 3px 15px rgba(47, 194, 197, 0.8)')" style="background-image: url('./assets/images/workPlateform-btn-bg2.png');">
+                县级河湖
+            </div>
+            <div onclick="changeBoxShadow(this,'0px 3px 15px rgba(97,167,255, 0.8)')" style="background-image: url('./assets/images/workPlateform-btn-bg3.png');">
+                见河长
+            </div>
+            <div onclick="changeBoxShadow(this,'0px 3px 15px rgba(255, 128, 110, 0.8)')" style="background-image: url('./assets/images/workPlateform-btn-bg4.png');">
+                见行动，见成效
+            </div>
+        </div>
+        <div id="mapDiv" class="workPlatformCenter"></div>
+        <div class="workPlatformRight">
+            <div class="switch" id="workPlatformSwitchButton">
+                <div class="switchText">
+                    <h4 id="workPlatformSwitchText1">隐</h4>
+                    <h4 id="workPlatformSwitchText2">藏</h4>
+                </div>
+            </div>
+            <div class="top">
+                <div></div>
+                <span>工作动态</span>
+            </div>
+            <div class="bottom">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="item">
+                                <div class="bgImage" style="background-image: url('./assets/images/workPlateform-r-bg1.png');"></div>
+                                <div class="text">
+                                    <span class="title">水利部交通运输部联合检查我省长江河道采砂管理</span>
+                                    <div class="date">
+                                        <span>[</span>
+                                        <span>06-07</span>
+                                        <span>11:20</span>
+                                        <span>]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="item">
+                                <div class="bgImage" style="background-image: url('./assets/images/workPlateform-r-bg2.png');"></div>
+                                <div class="text">
+                                    <span class="title">水利部交通运输部联合检查我省长江河道采砂管理</span>
+                                    <div class="date">
+                                        <span>[</span>
+                                        <span>06-07</span>
+                                        <span>11:20</span>
+                                        <span>]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="item">
+                                <div class="bgImage" style="background-image: url('./assets/images/workPlateform-r-bg3.png');"></div>
+                                <div class="text">
+                                    <span class="title">水利部交通运输部联合检查我省长江河道采砂管理</span>
+                                    <div class="date">
+                                        <span>[</span>
+                                        <span>06-07</span>
+                                        <span>11:20</span>
+                                        <span>]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="item">
+                                <div class="bgImage" style="background-image: url('./assets/images/workPlateform-r-bg4.png');"></div>
+                                <div class="text">
+                                    <span class="title">水利部交通运输部联合检查我省长江河道采砂管理</span>
+                                    <div class="date">
+                                        <span>[</span>
+                                        <span>06-07</span>
+                                        <span>11:20</span>
+                                        <span>]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="item">
+                                <div class="bgImage" style="background-image: url('./assets/images/workPlateform-r-bg5.png');"></div>
+                                <div class="text">
+                                    <span class="title">水利部交通运输部联合检查我省长江河道采砂管理</span>
+                                    <div class="date">
+                                        <span>[</span>
+                                        <span>06-07</span>
+                                        <span>11:20</span>
+                                        <span>]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    </script>
+    <script>
+        var s_btn = document.getElementById("workPlatformSwitchButton");
+        s_btn.isHide = true;
+        s_btn.onclick = function () {
+            if (s_btn.isHide) {
+                this.parentNode.style.transform = "translateX(398px)"
+                document.getElementById("workPlatformSwitchText1").innerText = "显";
+                document.getElementById("workPlatformSwitchText2").innerText = "示";
+            } else {
+                this.parentNode.style.transform = "translateX(0px)"
+                document.getElementById("workPlatformSwitchText1").innerText = "隐";
+                document.getElementById("workPlatformSwitchText2").innerText = "藏";
+            }
+            s_btn.isHide = !s_btn.isHide;
+        }
+        var leftBoxArr = document.getElementsByClassName("workPlatformLeft")[0].children;
+
+        function changeBoxShadow(ele, color) {
+            console.log(color)
+            for (var i = 0; i < leftBoxArr.length; i++) {
+                leftBoxArr[i].style.boxShadow = "none";
+            }
+            ele.style.boxShadow = color
+        }
+    </script>
+    <script type="text/javascript" src="http://api.tianditu.gov.cn/api?v=4.0&tk=	ecf889575d14b6f74b647be10cef15ea"></script>
+    <script>
+        var map;
+        var zoom = 12;
+
+        function onLoad() {
+            map = new T.Map('mapDiv');
+            map.centerAndZoom(new T.LngLat(116.40769, 39.89945), zoom);
+        }
+    </script>
+</body>
+
+</html>
