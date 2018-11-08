@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../assets/js/echarts.min.js"></script>
+    <style>
+        html,
+        body,
+        img,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        div {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .waterInfo {
+            position: absolute;
+            top: 90px;
+            left: 0px;
+            right: 0px;
+            bottom: 20px;
+        }
+
+        .waterInfo>.tabBtnArr {
+            float: right;
+        }
+
+        .waterInfo>.tabBtnArr span {
+            padding: 13px 20px;
+            background-color: #eee;
+            float: left;
+            font-size: 14px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .waterInfo>.tabBtnArr span:first-child {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            background-color: #2ba4e5;
+            color: #fff;
+        }
+
+        .waterInfo>.tabBtnArr span:last-child {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px
+        }
+
+        .waterInfo>.tabBtnArr span:hover {
+            color: #fff;
+            background-color: #2ba4e5;
+        }
+
+        .waterInfo>.waterTableAll {
+            position: absolute;
+            top: 84px;
+            bottom: 30px;
+            left: 0px;
+            right: 0px;
+            /* background-color: yellow; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="waterInfo">
+        <div class="tabBtnArr">
+            <span>总体水质</span>
+            <span>五市水质</span>
+            <span>考核断面水质</span>
+            <span>水功能区</span>
+        </div>
+        <div class="waterTableAll" id="waterContainer"></div>
+    </div>
+    <script>
+        // 乱建
+        var waterMin = 0;
+        var waterMax = 100;
+        var waterInterval = 20;
+        var waterData = {
+            xAxisData: ["Ⅰ类水质", "Ⅱ水质", "Ⅲ类水质", "Ⅳ类水质", "Ⅴ类水质", "劣Ⅴ类水质"],
+            overallData: [{
+                    value: 40,
+                    itemStyle: {
+                        color: "#75d9b6"
+                    }
+                },
+                {
+                    value: 30,
+                    itemStyle: {
+                        color: "#00d551"
+                    }
+                }, {
+                    value: 56,
+                    itemStyle: {
+                        color: "#36a3e5"
+                    }
+                }, {
+                    value: 70,
+                    itemStyle: {
+                        color: "#edd524"
+                    }
+                }, {
+                    value: 40,
+                    itemStyle: {
+                        color: "#ff774d"
+                    }
+                }, {
+                    value: 12,
+                    itemStyle: {
+                        color: "#ef2549"
+                    }
+                }
+            ],
+        };
+        var water = echarts.init(document.getElementById('waterContainer'));
+        var waterOption = {
+            grid: {
+                top: 30,
+                bottom: 20,
+                left: 40,
+                right: 1
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow',
+                    shadowStyle: {
+                        color: "rgba(124,124,124,0.12)"
+                    }
+                },
+            },
+
+            xAxis: {
+                axisLine: {
+                    lineStyle: {
+                        color: '#e5e5e5'
+                    }
+                },
+                axisLabel: {
+                    color: '#666'
+                },
+                data: waterData.xAxisData
+            },
+            yAxis: {
+                type: "value",
+                min: waterMin,
+                max: waterMax,
+                interval: waterInterval,
+                axisLine: {
+                    lineStyle: {
+                        color: '#e5e5e5'
+                    }
+                },
+                axisLabel: {
+                    textStyle: {
+                        color: '#666'
+                    },
+                    formatter: '{value}%'
+                },
+                splitArea: {
+                    show: true,
+                    areaStyle: {
+                        color: ['#fafbfb', '#fff']
+                    }
+                }
+            },
+
+
+            series: [{
+                name: '水质',
+                type: 'bar',
+                data: waterData.overallData,
+                barWidth: 50
+            }]
+        };
+        water.setOption(waterOption)
+    </script>
+</body>
+
+</html>

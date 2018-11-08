@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body,
+        img,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        div {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .seeRiverHeadTop {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            height: 260px;
+            background-color: #f3f7f9;
+            overflow: auto;
+        }
+
+        .seeRiverHeadTop>.title {
+            margin-top: 28px;
+            padding-left: 46px;
+        }
+
+        .seeRiverHeadTop>.title>img {
+            width: 28px;
+            vertical-align: middle;
+        }
+
+        .seeRiverHeadTop>.title>span {
+            font-size: 15px;
+            color: #333;
+        }
+
+        .seeRiverHeadTop>.info-p {
+            position: absolute;
+            top: 60px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+        }
+
+        .seeRiverHeadTop>.info-p>table {
+            width: 850px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-left: 100px;
+        }
+
+        .seeRiverHeadTop>.info-p td {
+            text-align: left;
+            height: 40px;
+            width: 25%;
+        }
+
+        .seeRiverHeadTop>.info-p tr:nth-child(2n-1) td {
+            /* padding-top: 80px; */
+        }
+
+        .seeRiverHeadTop>.info-p tr:first-child td {
+            padding-top: 0px;
+        }
+
+        .seeRiverHeadTop>.info-p td:nth-child(2n-1) {
+            width: 10%;
+        }
+        .seeRiverHeadTop>.info-p td:nth-child(2){
+            padding-right: 20px;
+        }
+
+        .seeRiverHeadBottom{
+            position: absolute;
+            top: 290px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="seeRiverHeadTop">
+        <div class="title">
+            <img src="../../assets/images/seeRiver-1-icon.png">
+            <span>省级河长</span>
+        </div>
+        <div class="info-p">
+            <table>
+                <tr>
+                    <td><span>河长姓名：</span></td>
+                    <td><span>李锦斌</span></td>
+                    <td><span>联系方式：</span></td>
+                    <td><span>152230021756</span></td>
+                </tr>
+                <tr>
+                    <td><span>职位：</span></td>
+                    <td><span>省委书记</span></td>
+                    <td><span>负责河段</span></td>
+                    <td><span>长江干流安徽段</span></td>
+                </tr>
+                <tr>
+                    <td><span>河段名称：</span></td>
+                    <td><span>长江干流安徽段</span></td>
+                    <td><span>起点：</span></td>
+                    <td><span>皖鄂交界处宿松县段窑（左岸）、皖赣交界处东至县香口牛矶（右岸）</span></td>
+                </tr>
+                <tr>
+                    <td><span>讫点：</span></td>
+                    <td><span>和县驻马河口（左岸）、皖苏交界处孙家闸（右岸）</span></td>
+                    <td><span>长度：</span></td>
+                    <td><span>416公里</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="seeRiverHeadBottom">
+        <img src="../../assets/images/img-map.png" width="100%" height="100%" alt="">
+    </div>
+</body>
+
+</html>

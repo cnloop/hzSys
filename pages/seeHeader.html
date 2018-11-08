@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/zTreeStyle/zTreeStyle.css">
+    <style>
+        html,
+        body,
+        img,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        div {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            background-color: oldlace;
+        }
+
+        .seeHeadPage>.innerContent {
+            position: absolute;
+            top: 32px;
+            left: 24px;
+            bottom: 20px;
+            right: 24px;
+        }
+
+        .seeHeadPage>.innerContent>.selectDiv {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            bottom: 0px;
+            width: 252px;
+            background-color: #fff;
+            border-radius: 2px;
+        }
+
+        .seeHeadPage>.innerContent>.selectDiv>.header {
+            height: 50px;
+            line-height: 50px;
+            font-size: 17px;
+            color: #fff;
+            background-color: #2ba4e5;
+            padding-left: 22px;
+            box-sizing: border-box;
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+        }
+
+        .seeHeadPage>.innerContent>.selectDiv>.seeHeaderTree {
+            position: absolute;
+            top: 120px;
+            bottom: 0px;
+            left: 20px;
+            right: 5px;
+            overflow: auto;
+        }
+
+        .seeHeadPage>.innerContent>.selectDiv>.searchInput{
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .seeHeadPage>.innerContent>.selectDiv>.searchInput input{
+            width: 174px;
+            height: 30px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-left: 14px;
+            padding-left: 8px;
+        }
+
+        .seeHeadPage>.innerContent>.selectDiv>.searchInput img{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-left: 8px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+       .seeHeadPage .ztree li.level0 {
+            padding: 8px 0px;
+        }
+
+
+       .seeHeadPage  .ztree li ul {
+            margin-top: 5px;
+        }
+
+       .seeHeadPage .ztree li ul li {
+            padding: 4px 0px;
+        }
+
+       .seeHeadPage .ztree li ul li.level1 {
+            padding: 6px 0px;
+        }
+
+      .seeHeadPage  .ztree li span.button.noline_open {
+            width: 10px;
+            height: 10px;
+            background-position: none;
+            display: inline-block;
+            background: url("../assets/images/ztree-s-open.png") no-repeat center center;
+        }
+
+       .seeHeadPage .ztree li span.button.noline_close {
+            width: 10px;
+            height: 10px;
+            background-position: none;
+            background: url("../assets/images/ztree-s-close.png") no-repeat center center;
+        }
+
+       .seeHeadPage .ztree li span.button.ico_open {
+            background-position: none;
+            background: url("../assets/images/ztree-file-open.png");
+        }
+
+       .seeHeadPage .ztree li span.button.ico_close {
+            background-position: none;
+            background: url("../assets/images/ztree-file-close.png");
+        }
+
+
+        .seeHeadPage  .ztree li a {
+            margin-left: 12px;
+        }
+
+        .seeHeadPage  .ztree li span.node_name {
+            margin-left: 8px;
+        }
+
+        .seeHeadPage  .ztree li span.button.noline_docu {
+            margin-left: -8px;
+        }
+
+        .seeHeadPage  .ztree li span.button.ico_docu {
+            background:url('../assets/images/river-icon.png') no-repeat;
+            background-size: 100% 100% !important;
+        }
+
+         .seeHeadPage>.innerContent>.showInfo {
+            position: absolute;
+            top: 0px;
+            bottom: 0px;
+            left: 276px;
+            right: 0px;
+            box-sizing: border-box;
+            border: 2px solid #dde3e8;
+            background-color: #fff;
+        }
+
+         .seeHeadPage>.innerContent>.showInfo>.wrap{
+             position: absolute;
+             top: 32px;
+             bottom: 32px;
+             left: 32px;
+             right: 32px;
+             background-color: #fff;
+             /* background-color: rgba(142,174,200,.1); */
+         }  
+    </style>
+    <script src="../assets/js/jquery-1.4.4.min.js"></script>
+    <script src="../assets/js/jquery.ztree.all.min.js"></script>
+</head>
+
+<body>
+    <div class="seeHeadPage">
+        <div class="innerContent">
+            <div class="selectDiv">
+                <h2 class="header">见河长</h2>
+                <div class="searchInput">
+                    <input type="text" placeholder="请输入查询内容">
+                    <img src="../assets/images/search-river-icon.png">
+                </div>
+                <div id="seeHeaderTree" class="ztree seeHeaderTree"></div>
+            </div>
+            <div class="showInfo">
+                <div class="wrap">
+                    <iframe id="revierInfo" width="100%" height="100%" src="../components/seeHeader/p1.html"
+                        frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var zTree;
+        var demoIframe;
+        var revierInfo = document.getElementById("revierInfo");
+
+        var setting = {
+            view: {
+                dblClickExpand: true,
+                showLine: false,
+                selectedMulti: false,
+            },
+            data: {
+                simpleData: {
+                    enable: true,
+                    idKey: "id",
+                    pIdKey: "pId",
+                    rootPId: ""
+                }
+            },
+            callback: {
+                beforeClick: function (treeId, treeNode) {
+                    // 拿到treeNode中的id
+                    if (treeNode.name == "长江") {
+                        revierInfo.src = "../components/seeHeader/p2.html"
+                    } else if (treeNode.name == "省级总河长") {
+                        revierInfo.src = "../components/seeHeader/p1.html"
+                    }else if(treeNode.name=="派河"){
+                        revierInfo.src = "../components/seeHeader/p3.html"
+                    }
+                }
+            }
+        };
+
+        var zNodes = [{
+                name: "省级总河长",
+                icon: "../assets/images/ztree-p1.png"
+            }, {
+                name: "省级河长",
+                open: true,
+                children: [{
+                        name: "三河",
+                        children: [{
+                                name: "长江",
+                                icon: "../assets/images/river-icon.png"
+                            },
+                            {
+                                name: "淮河",
+                                icon: "../assets/images/river-icon.png"
+                            },
+                            {
+                                name: "新安江",
+                                icon: "../assets/images/river-icon.png"
+                            }
+                        ]
+                    },
+                    {
+                        name: "九湖",
+                        children: [{
+                                name: "巢湖",
+                            },
+                            {
+                                name: "高塘湖",
+                            },
+                            {
+                                name: "石臼湖",
+                            },
+                            {
+                                name: "龙感湖",
+                            }, {
+                                name: "菜子湖",
+                            }, {
+                                name: "枫沙湖",
+                            }, {
+                                name: "高邮湖",
+                            }, {
+                                name: "焦岗湖",
+                            }, {
+                                name: "天河",
+                            }
+                        ]
+                    },
+                ]
+            },
+            {
+                name: "合肥市",
+                children: [{
+                    name: "市级总河长",
+                    icon: "../assets/images/ztree-p2.png"
+                }, {
+                    name: "市级河长",
+                    children: [{
+                        name: "派河",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "丰乐河",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "白石天河",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "南淝河",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "柘皋河",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "兆河",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "裕溪河",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "董铺水库",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "塘西河",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "双桥河",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "淠河总干",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "滁河干渠",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "杭埠河",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "十五里河",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "大房郢水库",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "滁河",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "高塘湖",
+                        icon: "../assets/images/river-icon.png"
+                    }, {
+                        name: "巢湖",
+                        icon: "../assets/images/river-icon.png"
+                    }]
+                },{
+                    name:"包河区",children:[]
+                },{
+                    name:"庐阳区",children:[]
+                },{
+                    name:"蜀山区",children:[]
+                },{
+                    name:"瑶海区",children:[]
+                },{
+                    name:"政务区",children:[]
+                },{
+                    name:"滨湖区",children:[]
+                },{
+                    name:"高新区",children:[]
+                },{
+                    name:"新站区",children:[]
+                },{
+                    name:"肥东县",children:[]
+                },{
+                    name:"肥西县",children:[]
+                },{
+                    name:"长丰县",children:[]
+                },{
+                    name:"巢湖市",children:[]
+                },{
+                    name:"庐江县",children:[]
+                }]
+            }, {
+                name: "芜湖市",
+                children: []
+            }, {
+                name: "蚌埠市",
+                children: []
+            }, {
+                name: "马鞍山市",
+                children: []
+            }, {
+                name: "安庆市",
+                children: []
+            }, {
+                name: "六安市",
+                children: []
+            }, {
+                name: "滁州市",
+                children: []
+            }, {
+                name: "宣城市",
+                children: []
+            }, {
+                name: "黄山市",
+                children: []
+            }, {
+                name: "淮南市",
+                children: []
+            }, {
+                name: "宿州市",
+                children: []
+            }, {
+                name: "铜陵市",
+                children: []
+            }, {
+                name: "淮北市",
+                children: []
+            }, {
+                name: "亳州市",
+                children: []
+            }, {
+                name: "池州市",
+                children: []
+            }, {
+                name: "阜阳市",
+                children: []
+            }
+
+        ];
+
+
+        $(document).ready(function () {
+            var t = $("#seeHeaderTree");
+            t = $.fn.zTree.init(t, setting, zNodes);
+            zTree = $.fn.zTree.getZTreeObj("seeHeaderTree");
+            zTree.selectNode(zTree.getNodeByParam("name", "省级总河长"));
+        });
+    </script>
+    <script>
+        // 打开指定节点
+        function openNodeP() {
+            zTree.expandNode(zTree.getNodeByParam("name", "合肥市"));
+        }
+    </script>
+</body>
+
+</html>

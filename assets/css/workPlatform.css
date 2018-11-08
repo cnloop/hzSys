@@ -1,13 +1,116 @@
 html,
-body {
-    height: 100%;
-}
-
-* {
+body,
+img,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div {
     margin: 0px;
     padding: 0px;
 }
 
+html,
+body {
+    height: 100%;
+}
+
 body {
     position: relative;
+}
+
+
+.workPlatform {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow-x: hidden;
+}
+
+.workPlatformLeft {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: 300px;
+    min-height: 100%;
+    background-color: rgba(249, 251, 248, 0.8);
+    z-index: 999;
+}
+
+.workPlatformLeft>div {
+    width: 238px;
+    height: 78px;
+    line-height: 78px;
+    font-size: 22px;
+    color: #fff;
+    box-sizing: border-box;
+    padding-left: 38px;
+    margin: 0 auto;
+    margin-top: 30px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+}
+
+.workPlatformLeft>div:nth-child(1) {
+    margin-top: 48px;
+    box-shadow: 0px 3px 15px rgba(247, 172, 43, 0.8)
+}
+
+.workPlatformLeft>div>span {
+    display: block;
+    width: 0;
+    height: 0;
+    border-width: 12px 0 12px 12px;
+    border-style: solid;
+    position: absolute;
+    top: 50%;
+    right: -12px;
+    transform: translateY(-50%);
+}
+
+.workPlatformLeft>div:nth-child(1)>span {
+    border-color: transparent transparent transparent #f67d11;
+}
+
+.workPlatformLeft>div:nth-child(2)>span {
+    display: none;
+    border-color: transparent transparent transparent #14a0d1;
+}
+
+.workPlatformLeft>div:nth-child(3)>span {
+    display: none;
+    border-color: transparent transparent transparent #14a0d1;
+}
+
+.workPlatformLeft>div:nth-child(4)>span {
+    display: none;
+    border-color: transparent transparent transparent #14a0d1;
+}
+
+.workPlatformLeft>div:nth-child(5)>span {
+    display: none;
+    border-color: transparent transparent transparent #6a87fe;
+}
+
+.workPlatformLeft>div:nth-child(6)>span {
+    display: none;
+    border-color: transparent transparent transparent #fe6d99;
+}
+
+.workPlatformRight {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 300px;
+    overflow: hidden;
 }
