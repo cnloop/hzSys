@@ -185,7 +185,7 @@
             position: absolute;
             top: 120px;
             bottom: 0px;
-            left: 5px;
+            left: 20px;
             right: 5px;
             overflow: auto;
         }
@@ -347,13 +347,9 @@
                     <span class="waterInfo" onclick="switchHeaderBtn(this,'waterInfo')">水质信息</span>
                 </div>
                 <div class="showInfoContainer">
-                    <iframe id="showInfoContainer" width="100%" height="100%" src="../components/seeAction/changjiang-seeAction.html"
+                    <iframe id="showInfoContainer" width="100%" height="100%" src="../components/common/changjiang-seeAction.html"
                         frameborder="0"></iframe>
                 </div>
-                <!-- <div class="top">
-                    <iframe width="100%" height="100%" src="../components/countyLevel/table.html" frameborder="0"></iframe>
-                </div>
-                <div class="bottom"></div> -->
             </div>
         </div>
     </div>
@@ -392,205 +388,80 @@
         };
 
         var zNodes = [{
-                name: "省级总河长",
-                icon: "../assets/images/ztree-p1.png"
+            name: "合肥市",
+            children: [{
+                name: "包河区",children:[]
             }, {
-                name: "省级河长",
-                open: true,
-                children: [{
-                        name: "三河",
-                        children: [{
-                                name: "长江",
-                                icon: "../assets/images/river-icon.png"
-                            },
-                            {
-                                name: "淮河",
-                                icon: "../assets/images/river-icon.png"
-                            },
-                            {
-                                name: "新安江",
-                                icon: "../assets/images/river-icon.png"
-                            }
-                        ]
-                    },
-                    {
-                        name: "九湖",
-                        children: [{
-                                name: "巢湖",
-                            },
-                            {
-                                name: "高塘湖",
-                            },
-                            {
-                                name: "石臼湖",
-                            },
-                            {
-                                name: "龙感湖",
-                            }, {
-                                name: "菜子湖",
-                            }, {
-                                name: "枫沙湖",
-                            }, {
-                                name: "高邮湖",
-                            }, {
-                                name: "焦岗湖",
-                            }, {
-                                name: "天河",
-                            }
-                        ]
-                    },
-                ]
-            },
-            {
-                name: "合肥市",
-                children: [{
-                    name: "市级总河长",
-                    icon: "../assets/images/ztree-p2.png"
-                }, {
-                    name: "市级河长",
-                    children: [{
-                        name: "派河",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "丰乐河",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "白石天河",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "南淝河",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "柘皋河",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "兆河",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "裕溪河",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "董铺水库",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "塘西河",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "双桥河",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "淠河总干",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "滁河干渠",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "杭埠河",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "十五里河",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "大房郢水库",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "滁河",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "高塘湖",
-                        icon: "../assets/images/river-icon.png"
-                    }, {
-                        name: "巢湖",
-                        icon: "../assets/images/river-icon.png"
-                    }]
-                }, {
-                    name: "包河区",
-                    children: []
-                }, {
-                    name: "庐阳区",
-                    children: []
-                }, {
-                    name: "蜀山区",
-                    children: []
-                }, {
-                    name: "瑶海区",
-                    children: []
-                }, {
-                    name: "政务区",
-                    children: []
-                }, {
-                    name: "滨湖区",
-                    children: []
-                }, {
-                    name: "高新区",
-                    children: []
-                }, {
-                    name: "新站区",
-                    children: []
-                }, {
-                    name: "肥东县",
-                    children: []
-                }, {
-                    name: "肥西县",
-                    children: []
-                }, {
-                    name: "长丰县",
-                    children: []
-                }, {
-                    name: "巢湖市",
-                    children: []
-                }, {
-                    name: "庐江县",
-                    children: []
-                }]
+                name: "蜀山区",children:[]
             }, {
-                name: "芜湖市",
-                children: []
+                name: "庐阳区",children:[]
             }, {
-                name: "蚌埠市",
-                children: []
+                name: "瑶海区",children:[]
             }, {
-                name: "马鞍山市",
-                children: []
+                name: "滨湖区",children:[]
             }, {
-                name: "安庆市",
-                children: []
+                name: "政务区",children:[]
             }, {
-                name: "六安市",
-                children: []
+                name: "高新区",children:[]
             }, {
-                name: "滁州市",
-                children: []
+                name: "新站区",children:[]
             }, {
-                name: "宣城市",
-                children: []
+                name: "肥东县",children:[]
             }, {
-                name: "黄山市",
-                children: []
+                name: "肥西县",children:[]
             }, {
-                name: "淮南市",
-                children: []
+                name: "长丰县",children:[]
             }, {
-                name: "宿州市",
-                children: []
+                name: "巢湖市",children:[]
             }, {
-                name: "铜陵市",
-                children: []
-            }, {
-                name: "淮北市",
-                children: []
-            }, {
-                name: "亳州市",
-                children: []
-            }, {
-                name: "池州市",
-                children: []
-            }, {
-                name: "阜阳市",
-                children: []
-            }
-
-        ];
+                name: "庐江县",children:[]
+            }]
+        }, {
+            name: "芜湖市",
+            children: []
+        }, {
+            name: "芜湖市",
+            children: []
+        }, {
+            name: "蚌埠市",
+            children: []
+        }, {
+            name: "马鞍山市",
+            children: []
+        }, {
+            name: "六安市",
+            children: []
+        }, {
+            name: "滁州市",
+            children: []
+        }, {
+            name: "宣城市",
+            children: []
+        }, {
+            name: "黄山市",
+            children: []
+        }, {
+            name: "淮南市",
+            children: []
+        }, {
+            name: "宿州市",
+            children: []
+        }, {
+            name: "铜陵市",
+            children: []
+        }, {
+            name: "淮北市",
+            children: []
+        }, {
+            name: "亳州市",
+            children: []
+        }, {
+            name: "池州市",
+            children: []
+        }, {
+            name: "阜阳市",
+            children: []
+        }];
 
 
         $(document).ready(function () {

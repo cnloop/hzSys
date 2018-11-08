@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/zTreeStyle/zTreeStyle.css">
     <style>
         html,
         body,
@@ -69,78 +70,6 @@
             border-top-right-radius: 2px;
         }
 
-
-        .provinceLevel>.innerContent>.selectDiv>.item {
-            width: 100%;
-            min-height: 53px;
-            box-sizing: border-box;
-        }
-
-        .provinceLevel>.innerContent>.selectDiv>.item>.title {
-            width: 100%;
-            height: 53px;
-            line-height: 53px;
-            cursor: pointer;
-            color: #333;
-            font-size: 13px;
-            position: relative;
-        }
-
-        .provinceLevel>.innerContent>.selectDiv>.item>.title>.img1 {
-            vertical-align: middle;
-            margin-left: 32px;
-            width: 18px;
-            height: 16px;
-        }
-
-        .provinceLevel>.innerContent>.selectDiv>.item>.title>.img2 {
-            width: 6px;
-            height: 10px;
-            position: absolute;
-            right: 34px;
-            top: 50%;
-            transform: translateY(-50%) rotate(90deg);
-            transition: all 0.3s;
-        }
-
-
-        .provinceLevel>.innerContent>.selectDiv>.item>.title>span {
-            margin-left: 20px;
-        }
-
-
-        .provinceLevel>.innerContent>.selectDiv>.item>.item-content {
-            width: 100%;
-            box-sizing: border-box;
-            /* height: 0px; */
-            overflow: hidden;
-            transition: height 0.3s;
-            cursor: pointer;
-        }
-
-        .provinceLevel>.innerContent>.selectDiv>.item>.item-content>.innerContent {
-            height: 32px;
-            line-height: 32px;
-            font-size: 13px;
-            color: #333;
-        }
-
-
-        .provinceLevel>.innerContent>.selectDiv>.item>.item-content>.innerContent:hover {
-            background-color: #fcf2d3;
-        }
-
-        .provinceLevel>.innerContent>.selectDiv>.item>.item-content>.innerContent>img {
-            width: 14px;
-            height: 16px;
-            vertical-align: middle;
-            margin-left: 52px;
-        }
-
-        .provinceLevel>.innerContent>.selectDiv>.item>.item-content>.innerContent>span {
-            margin-left: 18px;
-        }
-
         .provinceLevel>.innerContent>.showInfo {
             position: absolute;
             top: 0px;
@@ -184,7 +113,7 @@
             position: absolute;
             top: 120px;
             bottom: 0px;
-            left: 5px;
+            left: 20px;
             right: 5px;
             overflow: auto;
         }
@@ -214,32 +143,79 @@
         }
 
 
+          
+       .provinceLevel .ztree li.level0 {
+            padding: 8px 0px;
+        }
+
+
+       .provinceLevel  .ztree li ul {
+            margin-top: 5px;
+        }
+
+       .provinceLevel .ztree li ul li {
+            padding: 4px 0px;
+        }
+
+       .provinceLevel .ztree li ul li.level1 {
+            padding: 6px 0px;
+        }
+
+      .provinceLevel  .ztree li span.button.noline_open {
+            width: 10px;
+            height: 10px;
+            background-position: none;
+            display: inline-block;
+            background: url("../assets/images/ztree-s-open.png") no-repeat center center;
+        }
+
+       .provinceLevel .ztree li span.button.noline_close {
+            width: 10px;
+            height: 10px;
+            background-position: none;
+            background: url("../assets/images/ztree-s-close.png") no-repeat center center;
+        }
+
+       .provinceLevel .ztree li span.button.ico_open {
+            background-position: none;
+            background: url("../assets/images/ztree-file-open.png");
+        }
+
+       .provinceLevel .ztree li span.button.ico_close {
+            background-position: none;
+            background: url("../assets/images/ztree-file-close.png");
+        }
+
+
+        .provinceLevel  .ztree li a {
+            margin-left: 12px;
+        }
+
+        .provinceLevel  .ztree li span.node_name {
+            margin-left: 8px;
+        }
+
+        .provinceLevel  .ztree li span.button.noline_docu {
+            margin-left: -8px;
+        }
+
+        .provinceLevel  .ztree li span.button.ico_docu {
+            background:url('../assets/images/river-icon.png') no-repeat;
+            background-size: 100% 100% !important;
+        }
 
         .provinceLevel>.innerContent>.showInfo>.showInfoContainer {
             position: absolute;
-            top: 35px;
+            /* top: 35px; */
+            top: 60px;
             left: 54px;
             bottom: 0px;
             right: 54px;
         }
 
-        .provinceLevel>.innerContent>.showInfo>.top {
-            position: absolute;
-            top: 35px;
-            left: 54px;
-            right: 54px;
-            height: 246px;
-        }
-
-        .provinceLevel>.innerContent>.showInfo>.bottom {
-            position: absolute;
-            top: 324px;
-            bottom: 0px;
-            left: 54px;
-            right: 54px;
-            background-color: red;
-        }
     </style>
+    <script src="../assets/js/jquery-1.4.4.min.js"></script>
+    <script src="../assets/js/jquery.ztree.all.min.js"></script>
 
 </head>
 
@@ -252,72 +228,7 @@
                     <input type="text" placeholder="请输入查询内容">
                     <img src="../assets/images/search-river-icon.png">
                 </div>
-                <div class="item">
-                    <div class="title" onclick="changeState(this)">
-                        <img class="img1" src="../assets/images/fileDic-icon.png">
-                        <span>三河</span>
-                        <img class="img2 selectDiv-arrow" src="../assets/images/selectDiv-arrow-icon.png">
-                    </div>
-                    <div class="item-content">
-                        <div onclick="selectLakeRiver(this)" class="innerContent" style="background-color:#fcf2d3;">
-                            <img src="../assets/images/river-icon.png">
-                            <span>长江</span>
-                        </div>
-                        <div onclick="selectLakeRiver(this)" class="innerContent">
-                            <img src="../assets/images/river-icon.png">
-                            <span>淮河</span>
-                        </div>
-                        <div onclick="selectLakeRiver(this)" class="innerContent">
-                            <img src="../assets/images/river-icon.png">
-                            <span>新安江</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="title" onclick="changeState(this)">
-                        <img class="img1" src="../assets/images/fileDic-icon.png">
-                        <span>九湖</span>
-                        <img class="img2 selectDiv-arrow" src="../assets/images/selectDiv-arrow-icon.png">
-                    </div>
-                    <div class="item-content">
-                        <div onclick="selectLakeRiver(this)" class="innerContent">
-                            <img src="../assets/images/river-icon.png">
-                            <span>巢湖</span>
-                        </div>
-                        <div onclick="selectLakeRiver(this)" class="innerContent">
-                            <img src="../assets/images/river-icon.png">
-                            <span>高塘湖</span>
-                        </div>
-                        <div onclick="selectLakeRiver(this)" class="innerContent">
-                            <img src="../assets/images/river-icon.png">
-                            <span>石臼湖</span>
-                        </div>
-                        <div onclick="selectLakeRiver(this)" class="innerContent">
-                            <img src="../assets/images/river-icon.png">
-                            <span>龙感湖</span>
-                        </div>
-                        <div onclick="selectLakeRiver(this)" class="innerContent">
-                            <img src="../assets/images/river-icon.png">
-                            <span>菜子湖</span>
-                        </div>
-                        <div onclick="selectLakeRiver(this)" class="innerContent">
-                            <img src="../assets/images/river-icon.png">
-                            <span>枫沙湖</span>
-                        </div>
-                        <div onclick="selectLakeRiver(this)" class="innerContent">
-                            <img src="../assets/images/river-icon.png">
-                            <span>高邮湖</span>
-                        </div>
-                        <div onclick="selectLakeRiver(this)" class="innerContent">
-                            <img src="../assets/images/river-icon.png">
-                            <span>焦岗湖</span>
-                        </div>
-                        <div onclick="selectLakeRiver(this)" class="innerContent">
-                            <img src="../assets/images/river-icon.png">
-                            <span>天河湖</span>
-                        </div>
-                    </div>
-                </div>
+                <div id="seeHeaderTree" class="ztree seeHeaderTree"></div>
             </div>
             <div class="showInfo">
                 <div class="header">
@@ -326,54 +237,95 @@
                     <span class="waterInfo" onclick="switchHeaderBtn(this,'waterInfo')">水质信息</span>
                 </div>
                 <div class="showInfoContainer">
-                    <iframe id="showInfoContainer" width="100%" height="100%" src="../components/seeAction/changjiang-seeAction.html"
+                    <iframe id="showInfoContainer" width="100%" height="100%" src="../components/seeAction/changjiang-s.html"
                         frameborder="0"></iframe>
                 </div>
-                <!-- <div class="top">
-                    <iframe width="100%" height="100%" src="../components/provinceLevel/table.html" frameborder="0"></iframe>
-                </div>
-                <div class="bottom"></div> -->
             </div>
         </div>
     </div>
-    <!-- 左边导航折叠脚本 -->
     <script>
-        (function () {
-            var itemArr = document.getElementsByClassName("item-content");
-            for (var i = 0; i < itemArr.length; i++) {
-                itemArr[i].style.height = itemArr[i].scrollHeight + "px";
-            }
-        })()
+        var zTree;
+        var demoIframe;
+        var revierInfo = document.getElementById("revierInfo");
 
-        function changeState(ele) {
-            var content = ele.nextElementSibling;
-            var isOpenFlag = content.isOpen ? true : false;
-            if (isOpenFlag) {
-                // closeAllItemContent();
-                content.style.overflow = "block";
-                content.style.height = content.scrollHeight + "px";
-                ele.children[2].style.transform = "translateY(-50%) rotate(90deg)";
-            } else {
-                content.style.height = "0px";
-                content.style.overflow = "hidden";
-                ele.children[2].style.transform = "translateY(-50%) rotate(0deg)";
+        var setting = {
+            view: {
+                dblClickExpand: true,
+                showLine: false,
+                selectedMulti: false,
+            },
+            data: {
+                simpleData: {
+                    enable: true,
+                    idKey: "id",
+                    pIdKey: "pId",
+                    rootPId: ""
+                }
+            },
+            callback: {
+                beforeClick: function (treeId, treeNode) {
+                    // 拿到treeNode中的id
+                    if (treeNode.name == "长江") {
+                        revierInfo.src = "../components/seeHeader/p2.html"
+                    } else if (treeNode.name == "省级总河长") {
+                        revierInfo.src = "../components/seeHeader/p1.html"
+                    } else if (treeNode.name == "派河") {
+                        revierInfo.src = "../components/seeHeader/p3.html"
+                    }
+                }
             }
-            content.isOpen = !isOpenFlag;
-        }
-    </script>
-    <!-- 左边导航选择河湖事件 -->
-    <script>
-        function selectLakeRiver(ele) {
-            allLakeRiver();
-            ele.style.backgroundColor = "#fcf2d3"
-        }
+        };
 
-        function allLakeRiver() {
-            var lakeRiverArr = document.getElementsByClassName("innerContent");
-            for (var i = 0; i < lakeRiverArr.length; i++) {
-                lakeRiverArr[i].style.backgroundColor = ""
+        var zNodes = [{
+                name: "三河",
+                children: [{
+                        name: "长江",
+                        icon: "../assets/images/river-icon.png"
+                    },
+                    {
+                        name: "淮河",
+                        icon: "../assets/images/river-icon.png"
+                    },
+                    {
+                        name: "新安江",
+                        icon: "../assets/images/river-icon.png"
+                    }
+                ]
+            },
+            {
+                name: "九湖",
+                children: [{
+                        name: "巢湖",
+                    },
+                    {
+                        name: "高塘湖",
+                    },
+                    {
+                        name: "石臼湖",
+                    },
+                    {
+                        name: "龙感湖",
+                    }, {
+                        name: "菜子湖",
+                    }, {
+                        name: "枫沙湖",
+                    }, {
+                        name: "高邮湖",
+                    }, {
+                        name: "焦岗湖",
+                    }, {
+                        name: "天河",
+                    }
+                ]
             }
-        }
+        ];
+
+        $(document).ready(function () {
+            var t = $("#seeHeaderTree");
+            t = $.fn.zTree.init(t, setting, zNodes);
+            zTree = $.fn.zTree.getZTreeObj("seeHeaderTree");
+            zTree.selectNode(zTree.getNodeByParam("name", "省级总河长"));
+        });
     </script>
     <!-- 切换头部按钮 -->
     <script>
@@ -388,11 +340,11 @@
             ele.style.backgroundColor = "#2ba4e5";
             ele.style.color = "#fff";
             if (info == 'seeAction') {
-                showInfoContainer.src = "../components/seeAction/changjiang-seeAction.html"
+                showInfoContainer.src = "../components/seeAction/changjiang-s.html"
             } else if (info == "seeRiverHead") {
-                showInfoContainer.src = "../components/seeAction/changjiang-seeRiverHead.html"
+                showInfoContainer.src = "../components/common/changjiang-seeRiverHead.html"
             } else {
-                showInfoContainer.src = "../components/seeAction/changjiang-waterInfo.html"
+                showInfoContainer.src = "../components/common/changjiang-waterInfo.html"
             }
         }
     </script>

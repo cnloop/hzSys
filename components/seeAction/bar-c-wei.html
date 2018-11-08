@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body,
+        img,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        div {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .clearFourBar {
+            position: absolute;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+        }
+
+        .clearFourBar>.center {
+            margin-top: 44px;
+        }
+
+        .clearFourBar >.center>.bar-title {
+            text-align: center;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .clearFourBar >.center>.label-tab {
+            margin-top: 40px;
+            height: 34px;
+            position: relative;
+        }
+
+        .clearFourBar >.center>.label-tab>.left {
+            display: inline-block;
+            position: absolute;
+            /* left: 60px; */
+            left: 0px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .clearFourBar >.center>.label-tab>.left>.label {
+            display: inline-block;
+            width: 32px;
+            height: 14px;
+            background-color: #0093db;
+            border-radius: 5px;
+            user-select: none;
+        }
+
+        .clearFourBar >.center>.label-tab>.left>.label-2 {
+            margin-left: 24px;
+            background-color: #ff9a36;
+        }
+
+        .clearFourBar >.center>.label-tab>.left>.label-3 {
+            margin-left: 24px;
+            background-color: #00d551;
+        }
+
+        .clearFourBar >.center>.label-tab>.left>.text {
+            color: #333;
+            font-size: 12px;
+            display: inline-block;
+            user-select: none;
+            transform: translateY(-2px);
+        }
+
+        .clearFourBar >.center>.label-tab>.right {
+            position: absolute;
+            /* right: 60px; */
+            right: 0px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+        }
+
+        .clearFourBar >.center>.label-tab>.right>span {
+            padding: 8px 26px;
+            background-color: #eee;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .clearFourBar >.center>.label-tab>.right>span:hover {
+            color: #fff;
+            background-color: #2ba4e5;
+        }
+
+        .clearFourBar >.center>.label-tab>.right>span.selected {
+            color: #fff;
+            background-color: #2ba4e5;
+        }
+
+        .clearFourBar >.bottom {
+            position: absolute;
+            /* top: 220px; */
+            top: 170px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+        }
+
+        .clearFourBar >.bottom>div {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+    <script src="../../assets/js/echarts.min.js"></script>
+</head>
+
+<body>
+    <div class="clearFourBar">
+        <div class="center">
+            <h1 class="bar-title">违法占用水域专项行动</h1>
+            <div class="label-tab">
+                <div class="left">
+                    <span class="label label-1"></span>
+                    <span class="text">发现</span>
+                    <span class="label label-2"></span>
+                    <span class="text">清理</span>
+                    <span class="label label-3"></span>
+                    <span class="text">销号</span>
+                </div>
+                <div class="right" id="dirtyButtonArr">
+                    <span class="selected" onclick="SelectDirtyItem(this,'dirtyOver')" id="dirtyOverBtn">码头</span>
+                    <span onclick="SelectDirtyItem(this,'dirtyStacking')" id="dirtyPickBtn">堆场</span>
+                    <span onclick="SelectDirtyItem(this,'dirtyPick')" id="dirtyStackingBtn">建设项目</span>
+                    <span onclick="SelectDirtyItem(this,'dirtyBuilding')" id="dirtyBuildingBtn">其他违法违规</span>
+                </div>
+            </div>
+        </div>
+        <div class="bottom" id="dirtyTable">
+            <!-- 乱占 -->
+            <div id="dirtyOver">
+            </div>
+            <!-- 乱采 -->
+            <div id="dirtyPick">
+            </div>
+            <!-- 乱堆 -->
+            <div id="dirtyStacking">
+            </div>
+            <!-- 乱建 -->
+            <div id="dirtyBuilding">
+            </div>
+        </div>
+    </div>
+    <script>
+        // div容器全部隐藏
+        var dirtyButtonArr = document.getElementById("dirtyButtonArr");
+        var dirtyTableArr = document.getElementById("dirtyTable")
+
+        function SelectDirtyItem(ele, item) {
+            for (var i = 0; i < dirtyButtonArr.children.length; i++) {
+                dirtyButtonArr.children[i].className = ""
+            }
+            ele.className = "selected";
+            for (var j = 0; j < dirtyTableArr.children.length; j++) {
+                dirtyTableArr.children[j].style.display = "none"
+            }
+            document.getElementById(item).style.display = "block"
+        }
+
+        function hideDirtyTable() {
+            for (var i = 0; i < dirtyTableArr.children.length; i++) {
+                dirtyTableArr.children[i].style.display = "none"
+            }
+            dirtyTableArr.children[0].style.display = "block"
+        }
+        // 乱建
+        var dirtyBuildingMin = 0;
+        var dirtyBuildingMax = 2500;
+        var dirtyBuildingInterval = 500;
+        var dirtyBuildingData = {
+            xAxisData: ["合肥市", "芜湖市", "蚌埠市", "马鞍山市", "安庆市", "六安市", "滁州市", "宣城市", "黄山市", "淮南市", "宿州市", "铜陵市", "淮北市",
+                "亳州市", "池州市", "阜阳市"
+            ],
+            findData: [107, 205, 320, 155, 601, 805, 908, 1210, 650, 1609, 1808, 1520, 2001, 669, 566, 960],
+            clearData: [91, 183, 288, 132, 521, 785, 808, 1120, 450, 1429, 1458, 1118, 1836, 458, 416, 861],
+            clearNumberData: [81, 181, 285, 122, 513, 765, 801, 1110, 440, 1419, 1448, 1108, 1826, 448, 406, 851]
+        };
+        var dirtyBuilding = echarts.init(document.getElementById('dirtyBuilding'));
+        var dirtyBuildingOption = {
+            grid: {
+                top: 30,
+                bottom: 20,
+                left: 40,
+                right: 1
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow',
+                    shadowStyle: {
+                        color: "rgba(124,124,124,0.12)"
+                    }
+                },
+            },
+
+            xAxis: {
+                axisLine: {
+                    lineStyle: {
+                        color: '#e5e5e5'
+                    }
+                },
+                axisLabel: {
+                    color: '#666'
+                },
+                data: dirtyBuildingData.xAxisData
+            },
+            yAxis: [{
+                    type: "value",
+                    name: "（个）",
+                    min: dirtyBuildingMin,
+                    max: dirtyBuildingMax,
+                    interval: dirtyBuildingInterval,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#e5e5e5'
+                        }
+                    },
+                    axisLabel: {
+                        color: '#8c8c8c'
+                    },
+                    nameTextStyle: {
+                        color: '#808080'
+                    },
+                    splitArea: {
+                        show: true,
+                        areaStyle: {
+                            color: ['#fafbfb', '#fff']
+                        }
+                    }
+                },
+                {
+                    type: "value",
+                    axisLine: {
+                        lineStyle: {
+                            color: '#e5e5e5'
+                        }
+                    },
+                    // name: "百分比",
+                    // min: 0,
+                    // max: 100,
+                    // interval: 20,
+                    // axisLabel: {
+                    //     formatter: '{value}%'
+                    // }
+                }
+            ],
+
+
+            series: [{
+                name: '发现',
+                type: 'bar',
+                barWidth: 10,
+                barGap: '20%',
+                data: dirtyBuildingData.findData,
+                itemStyle: {
+                    color: "#0093db"
+                }
+            }, {
+                name: '清理',
+                type: 'bar',
+                barWidth: 10,
+                barGap: '20%',
+                data: dirtyBuildingData.clearData,
+                itemStyle: {
+                    color: "#ff9a36"
+                }
+            }, {
+                name: '销号',
+                type: 'bar',
+                barWidth: 10,
+                barGap: '20%',
+                data: dirtyBuildingData.clearNumberData,
+                itemStyle: {
+                    color: "#00d551"
+                }
+            }]
+        };
+        dirtyBuilding.setOption(dirtyBuildingOption)
+        // 乱堆
+        var dirtyStackingMin = 0;
+        var dirtyStackingMax = 2500;
+        var dirtyStackingInterval = 500;
+        var dirtyStackingData = {
+            xAxisData: ["合肥市", "芜湖市", "蚌埠市", "马鞍山市", "安庆市", "六安市", "滁州市", "宣城市", "黄山市", "淮南市", "宿州市", "铜陵市", "淮北市",
+                "亳州市", "池州市", "阜阳市"
+            ],
+            findData: [213, 1555, 890, 455, 721, 155, 818, 950, 560, 1291, 1618, 1310, 1836, 369, 566, 910],
+            clearData: [210, 1125, 810, 325, 521, 105, 718, 560, 350, 1091, 1118, 1010, 1536, 269, 366, 610],
+            clearNumberData: [150, 1105, 756, 315, 501, 98, 708, 550, 340, 1001, 1108, 1000, 1526, 259, 356, 600]
+        };
+        var dirtyStacking = echarts.init(document.getElementById('dirtyStacking'));
+        var dirtyStackingOption = {
+            grid: {
+                top: 30,
+                bottom: 20,
+                left: 40,
+                right: 1
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow',
+                    shadowStyle: {
+                        color: "rgba(124,124,124,0.12)"
+                    }
+                },
+            },
+
+            xAxis: {
+                axisLine: {
+                    lineStyle: {
+                        color: '#e5e5e5'
+                    }
+                },
+                axisLabel: {
+                    color: '#666'
+                },
+                data: dirtyBuildingData.xAxisData
+            },
+            yAxis: [{
+                    type: "value",
+                    name: "（个）",
+                    min: dirtyBuildingMin,
+                    max: dirtyBuildingMax,
+                    interval: dirtyBuildingInterval,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#e5e5e5'
+                        }
+                    },
+                    axisLabel: {
+                        color: '#8c8c8c'
+                    },
+                    nameTextStyle: {
+                        color: '#808080'
+                    },
+                    splitArea: {
+                        show: true,
+                        areaStyle: {
+                            color: ['#fafbfb', '#fff']
+                        }
+                    }
+                },
+                {
+                    type: "value",
+                    // name: "百分比",
+                    // min: 0,
+                    // max: 100,
+                    // interval: 20,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#e5e5e5'
+                        }
+                    },
+                    // axisLabel: {
+                    //     formatter: '{value}%'
+                    // }
+                }
+            ],
+
+
+            series: [{
+                name: '发现',
+                type: 'bar',
+                barWidth: 10,
+                barGap: '20%',
+                data: dirtyStackingData.findData,
+                itemStyle: {
+                    color: "#0093db"
+                }
+            }, {
+                name: '清理',
+                type: 'bar',
+                barWidth: 10,
+                barGap: '20%',
+                data: dirtyStackingData.clearData,
+                itemStyle: {
+                    color: "#ff9a36"
+                }
+            }, {
+                name: '销号',
+                type: 'bar',
+                barWidth: 10,
+                barGap: '20%',
+                data: dirtyStackingData.clearNumberData,
+                itemStyle: {
+                    color: "#00d551"
+                }
+            }]
+        };
+        dirtyStacking.setOption(dirtyStackingOption)
+        //乱采
+        var dirtyPickMin = 0;
+        var dirtyPickMax = 2500;
+        var dirtyPickInterval = 500;
+        var dirtyPickData = {
+            xAxisData: ["合肥市", "芜湖市", "蚌埠市", "马鞍山市", "安庆市", "六安市", "滁州市", "宣城市", "黄山市", "淮南市", "宿州市", "铜陵市", "淮北市",
+                "亳州市", "池州市", "阜阳市"
+            ],
+            findData: [207, 356, 1501, 256, 541, 305, 708, 950, 420, 1204, 1436, 1720, 2101, 569, 366, 860],
+            clearData: [187, 316, 1101, 216, 511, 281, 651, 940, 410, 1178, 1312, 1656, 2007, 516, 361, 852],
+            clearNumberData: [181, 311, 1100, 206, 501, 211, 611, 920, 401, 1148, 1301, 1646, 1956, 503, 333, 852]
+        };
+        var dirtyPick = echarts.init(document.getElementById('dirtyPick'));
+        var dirtyPickOption = {
+            grid: {
+                top: 30,
+                bottom: 20,
+                left: 40,
+                right: 1
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow',
+                    shadowStyle: {
+                        color: "rgba(124,124,124,0.12)"
+                    }
+                },
+            },
+
+            xAxis: {
+                axisLine: {
+                    lineStyle: {
+                        color: '#e5e5e5'
+                    }
+                },
+                axisLabel: {
+                    color: '#666'
+                },
+                data: dirtyBuildingData.xAxisData
+            },
+            yAxis: [{
+                    type: "value",
+                    name: "（个）",
+                    min: dirtyBuildingMin,
+                    max: dirtyBuildingMax,
+                    interval: dirtyBuildingInterval,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#e5e5e5'
+                        }
+                    },
+                    axisLabel: {
+                        color: '#8c8c8c'
+                    },
+                    nameTextStyle: {
+                        color: '#808080'
+                    },
+                    splitArea: {
+                        show: true,
+                        areaStyle: {
+                            color: ['#fafbfb', '#fff']
+                        }
+                    }
+                },
+                {
+                    type: "value",
+                    axisLine: {
+                        lineStyle: {
+                            color: '#e5e5e5'
+                        }
+                    },
+                    // name: "百分比",
+                    // min: 0,
+                    // max: 100,
+                    // interval: 20,
+                    // axisLabel: {
+                    //     formatter: '{value}%'
+                    // }
+                }
+            ],
+
+
+            series: [{
+                name: '发现',
+                type: 'bar',
+                barWidth: 10,
+                barGap: '20%',
+                data: dirtyPickData.findData,
+                itemStyle: {
+                    color: "#0093db"
+                }
+            }, {
+                name: '清理',
+                type: 'bar',
+                barWidth: 10,
+                barGap: '20%',
+                data: dirtyPickData.clearData,
+                itemStyle: {
+                    color: "#ff9a36"
+                }
+            }, {
+                name: '销号',
+                type: 'bar',
+                barWidth: 10,
+                barGap: '20%',
+                data: dirtyPickData.clearNumberData,
+                itemStyle: {
+                    color: "#00d551"
+                }
+            }]
+        };
+        dirtyPick.setOption(dirtyPickOption)
+        //乱占
+        var dirtyOverMin = 0;
+        var dirtyOverMax = 2500;
+        var ddirtyOverInterval = 500;
+        var dirtyOverData = {
+            xAxisData: ["合肥市", "芜湖市", "蚌埠市", "马鞍山市", "安庆市", "六安市", "滁州市", "宣城市", "黄山市", "淮南市", "宿州市", "铜陵市", "淮北市",
+                "亳州市", "池州市", "阜阳市"
+            ],
+            findData: [2000, 425, 822, 755, 651, 1025, 878, 280, 1550, 1209, 1808, 1320, 801, 469, 366, 260],
+            clearData: [280, 415, 802, 715, 511, 1025, 818, 240, 1510, 1109, 1608, 1120, 751, 419, 316, 213],
+            clearNumberData: [270, 405, 800, 705, 501, 1005, 808, 230, 1500, 1100, 1601, 1110, 741, 409, 306, 209]
+        };
+        var dirtyOver = echarts.init(document.getElementById('dirtyOver'));
+        var dirtyOverOption = {
+            grid: {
+                top: 30,
+                bottom: 20,
+                left: 40,
+                right: 1
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow',
+                    shadowStyle: {
+                        color: "rgba(124,124,124,0.12)"
+                    }
+                },
+            },
+
+            xAxis: {
+                axisLine: {
+                    lineStyle: {
+                        color: '#e5e5e5'
+                    }
+                },
+                axisLabel: {
+                    color: '#666'
+                },
+                data: dirtyOverData.xAxisData
+            },
+            yAxis: [{
+                    type: "value",
+                    name: "（个）",
+                    min: dirtyBuildingMin,
+                    max: dirtyBuildingMax,
+                    interval: dirtyBuildingInterval,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#e5e5e5'
+                        }
+                    },
+                    axisLabel: {
+                        color: '#8c8c8c'
+                    },
+                    nameTextStyle: {
+                        color: '#808080'
+                    },
+                    splitArea: {
+                        show: true,
+                        areaStyle: {
+                            color: ['#fafbfb', '#fff']
+                        }
+                    }
+                },
+                {
+                    type: "value",
+                    axisLine: {
+                        lineStyle: {
+                            color: '#e5e5e5'
+                        }
+                    },
+                    // name: "百分比",
+                    // min: 0,
+                    // max: 100,
+                    // interval: 20,
+                    // axisLabel: {
+                    //     formatter: '{value}%'
+                    // }
+                }
+            ],
+
+
+            series: [{
+                name: '发现',
+                type: 'bar',
+                barWidth: 10,
+                barGap: '20%',
+                data: dirtyOverData.findData,
+                itemStyle: {
+                    color: "#0093db"
+                }
+            }, {
+                name: '清理',
+                type: 'bar',
+                barWidth: 10,
+                barGap: '20%',
+                data: dirtyOverData.clearData,
+                itemStyle: {
+                    color: "#ff9a36"
+                }
+            }, {
+                name: '销号',
+                type: 'bar',
+                barWidth: 10,
+                barGap: '20%',
+                data: dirtyOverData.clearNumberData,
+                itemStyle: {
+                    color: "#00d551"
+                }
+            }]
+        };
+        dirtyOver.setOption(dirtyOverOption)
+        hideDirtyTable();
+    </script>
+</body>
+
+</html>

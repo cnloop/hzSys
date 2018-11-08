@@ -82,7 +82,7 @@
             cursor: pointer;
         }
 
-        .seeAction>.innerContent>.showInfo>.header>span:nth-child(2) {
+        .seeAction>.innerContent>.showInfo>.header>span:nth-child(1) {
             color: #fff;
             background-color: #2ba4e5;
         }
@@ -121,12 +121,12 @@
         <div class="innerContent">
             <div class="showInfo">
                 <div class="header">
-                    <span class="seeRiverHeadBtn" onclick="switchHeaderBtn(this,'seeRiverHead')">省级</span>
-                    <span class="seeActionBtn" onclick="switchHeaderBtn(this,'seeAction')">市级</span>
-                    <span class="waterInfo" onclick="switchHeaderBtn(this,'waterInfo')">县级</span>
+                    <span class="seeRiverHeadBtn" onclick="switchHeaderBtn(this,'s')">省级</span>
+                    <span class="seeActionBtn" onclick="switchHeaderBtn(this,'c')">市级</span>
+                    <span class="waterInfo" onclick="switchHeaderBtn(this,'x')">县级</span>
                 </div>
                 <div class="showInfoContainer">
-                    <iframe id="showInfoContainer" width="100%" height="100%" src="../components/seeAction/changjiang-seeAction.html"
+                    <iframe id="showInfoContainer" width="100%" height="100%" src="../components/seeAction/changjiang-s.html"
                         frameborder="0"></iframe>
                 </div>
             </div>
@@ -157,15 +157,6 @@
             content.isOpen = !isOpenFlag;
         }
 
-        // function closeAllItemContent() {
-        //     var contentArr = document.getElementsByClassName("item-content");
-        //     for (var i = 0; i < contentArr.length; i++) {
-        //         contentArr[i].style.height = "0px";
-        //         contentArr[i].style.overflow = "hidden";
-        //         contentArr[i].previousElementSibling.children[2].style.transform = "translateY(-50%) rotate(0deg)";
-        //         contentArr[i].isOpen = false;
-        //     }
-        // }
     </script>
     <!-- 左边导航选择河湖事件 -->
     <script>
@@ -193,12 +184,12 @@
             }
             ele.style.backgroundColor = "#2ba4e5";
             ele.style.color = "#fff";
-            if (info == 'seeAction') {
-                showInfoContainer.src = "../components/seeAction/changjiang-seeAction.html"
-            } else if (info == "seeRiverHead") {
-                showInfoContainer.src = "../components/seeAction/changjiang-seeRiverHead.html"
+            if (info == 's') {
+                showInfoContainer.src = "../components/seeAction/changjiang-s.html"
+            } else if (info == "c") {
+                showInfoContainer.src = "../components/seeAction/changjiang-c.html"
             } else {
-                showInfoContainer.src = "../components/seeAction/changjiang-waterInfo.html"
+                showInfoContainer.src = "../components/seeAction/changjiang-x.html"
             }
         }
     </script>

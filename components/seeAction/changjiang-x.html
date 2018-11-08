@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body,
+        img,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        div {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .com-table {
+            position: absolute;
+            top: 0px;
+            bottom: 1px;
+            left: 0px;
+            right: 0px;
+        }
+
+        .com-table>.top {
+            position: absolute;
+            top: 35px;
+            left: 54px;
+            right: 54px;
+            height: 246px;
+        }
+
+
+        .com-table>.bottom {
+            position: absolute;
+            top: 324px;
+            bottom: 8px;
+            left: 54px;
+            right: 54px;
+        }
+
+        .com-table>.top>.selectDiv {
+            width: 196px;
+            height: 36px;
+            box-sizing: border-box;
+            border: 1px solid #d0d5d9;
+            border-radius: 2px;
+            line-height: 36px;
+            background-color: #f3f6f8;
+            cursor: pointer;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            z-index: 999;
+        }
+
+        .com-table>.top>.selectDiv>span {
+            font-size: 14px;
+            color: #42474b;
+            margin-right: 7px;
+            margin-left: 11px;
+        }
+
+        .com-table>.top>.selectDiv>img {
+            height: 9px;
+            position: absolute;
+            display: block;
+            top: 50%;
+            right: 12px;
+            transform: translateY(-2px) rotate(90deg)
+        }
+
+        .com-table>.top>.selectDiv>.content {
+            width: 100%;
+            position: absolute;
+            top: 42px;
+            left: 0px;
+            box-sizing: border-box;
+            background-color: #fff;
+            display: none;
+            box-shadow: 0 1px 5px 0 #ccc;
+        }
+
+        .com-table>.top>.selectDiv>.content>.item {
+            padding: 0px 3px;
+            font-size: 14px;
+            color: #42474b;
+            box-sizing: border-box;
+            display: block;
+        }
+
+        .com-table>.top>.selectDiv>.content>.item>span {
+            padding-left: 11px;
+        }
+
+        .com-table>.top>.selectDiv>.content>.item:hover {
+            background-color: #ddd;
+        }
+
+
+
+        .com-table>.top>.tableContainer {
+            position: absolute;
+            top: 54px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="com-table">
+        <div class="top">
+            <!-- <iframe width="100%" height="100%" src="../components/seeAction/table.html" frameborder="0"></iframe> -->
+            <div class="selectDiv" onclick="openSelectItem(this)">
+                <span>清四乱专项整治行动</span>
+                <img src="../../assets/images/selectDiv-arrow-icon.png">
+                <div class="content">
+                    <div class="item" onclick="selectItem(this,'clear')">
+                        <span>清四乱专项整治行动</span>
+                    </div>
+                    <div class="item" onclick="selectItem(this,'hei')">
+                        <span>黑臭水体整治行动</span>
+                    </div>
+                    <div class="item" onclick="selectItem(this,'wu')">
+                        <span>污染源排查整治行动</span>
+                    </div>
+                    <div class="item" onclick="selectItem(this,'wei')">
+                        <span>违法占用水域专项行动</span>
+                    </div>
+                    <div class="item" onclick="selectItem(this,'du')">
+                        <span>督察暗访专项行动</span>
+                    </div>
+                </div>
+            </div>
+            <div class="tableContainer">
+                <iframe id="tableWrap" src="./table-x-clear.html" width="100%" height="100%" frameborder="0"></iframe>
+            </div>
+        </div>
+        <div class="bottom">
+            <iframe id="barWrap" width="100%" height="100%" src="./bar-x-clear.html" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <!-- 选择select组件 -->
+    <script>
+        function openSelectItem(ele) {
+            var flag = ele.isSeleted ? true : false;
+            if (!flag) {
+                ele.children[2].style.display = "block";
+            } else {
+                ele.children[2].style.display = "none";
+            }
+            ele.isSeleted = !flag;
+        }
+
+        var tableWrap = document.getElementById("tableWrap")
+
+        var barWrap = document.getElementById("barWrap")
+
+        function selectItem(ele, info) {
+            var parentEle = ele.parentNode.parentNode;
+            parentEle.children[0].innerText = ele.children[0].innerText;
+            parentEle.children[2].style.display = "block";
+            parentEle.isSeleted = true;
+            console.log(info)
+            if (info == 'clear') {
+                tableWrap.src = "./table-x-clear.html"
+                barWrap.src = "./bar-x-clear.html"
+            } else if (info == 'hei') {
+                tableWrap.src = "./table-x-hei.html"
+                barWrap.src = "./bar-x-hei.html"
+            } else if (info == 'wei') {
+                tableWrap.src = "./table-x-wei.html"
+                barWrap.src = "./bar-x-wei.html"
+            } else if (info == 'wu') {
+                tableWrap.src = "./table-x-wu.html"
+                barWrap.src = "./bar-x-wu.html"
+            } else if (info == 'du') {
+                tableWrap.src = "./table-x-du.html"
+                barWrap.src = "./bar-x-du.html"
+            }
+        }
+    </script>
+</body>
+
+</html>
